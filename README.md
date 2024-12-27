@@ -1,13 +1,11 @@
 # Token Launchpad Comparison
 
-This project analyzes and compares different DeFi liquidity mechanisms, focusing on protocols like Gobbler, Snapper, M3M3, and Ripper. It provides insights into their performance through a visual representation of returns over time.
+This project analyzes and compares different DeFi liquidity mechanisms, focusing on protocols like Gobbler, Snapper, M3M3, Pump.fun and the hypothetical Ripper. It provides insights into their performance through a visual representation of returns over time.
 
 ## Available Scripts
 
 - **npm start**: Runs the app in development mode.
-- **npm test**: Launches the test runner.
 - **npm run build**: Builds the app for production.
-- **npm run eject**: Ejects the configuration files for customization.
 
 ## Project Overview
 
