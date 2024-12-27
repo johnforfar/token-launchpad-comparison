@@ -1,0 +1,9 @@
+[project]
+name = "token-launchpad-comparison"
+version = "0.1.0"
+homepage = "https://johnforfar.github.io/token-launchpad-comparison"
+
+[scripts]
+build = "bun build src/index.tsx --outdir build"
+dev = "bun run build && bun serve build"
+deploy = "bun run build && gh-pages -d build"

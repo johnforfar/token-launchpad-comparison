@@ -1,0 +1,105 @@
+.App {
+  text-align: left;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.App h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.analysis-section {
+  margin-top: 40px;
+  padding: 30px;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.analysis-section h2,
+.analysis-section h3,
+.analysis-section h4,
+.analysis-section h5 {
+  color: #111827;
+  margin-top: 1.5em;
+  margin-bottom: 0.75em;
+}
+
+.analysis-section h2 {
+  font-size: 2em;
+  border-bottom: 2px solid #e5e7eb;
+  padding-bottom: 0.5em;
+}
+
+.analysis-section h3 {
+  font-size: 1.5em;
+}
+
+.analysis-section h4 {
+  font-size: 1.25em;
+}
+
+.analysis-section h5 {
+  font-size: 1.1em;
+}
+
+.analysis-section p {
+  margin-bottom: 1em;
+  line-height: 1.6;
+  color: #374151;
+}
+
+.analysis-section pre {
+  background-color: #f3f4f6;
+  padding: 1em;
+  border-radius: 6px;
+  margin: 1em 0;
+  overflow-x: auto;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.9em;
+  line-height: 1.4;
+}
+
+.analysis-section code {
+  background-color: #f3f4f6;
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.9em;
+}
+
+.analysis-section strong {
+  color: #111827;
+  font-weight: 600;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .App {
+    padding: 15px;
+  }
+
+  .analysis-section {
+    padding: 20px;
+  }
+
+  .analysis-section h2 {
+    font-size: 1.75em;
+  }
+
+  .analysis-section h3 {
+    font-size: 1.35em;
+  }
+
+  .analysis-section h4 {
+    font-size: 1.15em;
+  }
+
+  .analysis-section h5 {
+    font-size: 1em;
+  }
+}
