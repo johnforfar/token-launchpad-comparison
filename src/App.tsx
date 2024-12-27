@@ -12,7 +12,7 @@ const App: React.FC = () => {
         <h2>Token Launchpad Comparison Analysis</h2>
         <h3>Protocol Evolution Overview</h3>
         <p>
-          The DeFi ecosystem has seen rapid evolution in liquidity provision mechanisms, from traditional AMMs to sophisticated staking models. This analysis examines four distinct approaches: Gobbler, Snapper, M3M3, and introduces Ripper as a hypothetical hybrid solution.
+          The DeFi ecosystem has seen rapid evolution in liquidity provision mechanisms, from traditional AMMs to sophisticated staking models. This analysis examines four distinct approaches: Gobbler, Snapper, M3M3, Pump.fun and introduces Ripper as a hypothetical hybrid solution.
         </p>
         <h3>Protocol Mechanics</h3>
         
@@ -116,6 +116,9 @@ Total_value = LP_tokens + AMM_fees + Staking_rewards`}
                     M3M3
                   </th>
                   <th scope="col" className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Pump.fun
+                  </th>
+                  <th scope="col" className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Ripper (Hypothetical)
                   </th>
                 </tr>
@@ -128,6 +131,7 @@ Total_value = LP_tokens + AMM_fees + Staking_rewards`}
                   <td className="px-3 py-6 whitespace-normal text-sm text-gray-500">Leads with early incentives, ideal for meme market hype</td>
                   <td className="px-3 py-6 whitespace-normal text-sm text-gray-500">Gaining momentum, suitable for balanced liquidity</td>
                   <td className="px-3 py-6 whitespace-normal text-sm text-gray-500">Gaining momentum with aggressive staking rewards</td>
+                  <td className="px-3 py-6 whitespace-normal text-sm text-gray-500">High initial price surge, ideal for meme markets due to bonding curve</td>
                   <td className="px-3 py-6 whitespace-normal text-sm text-gray-500">Competitive through dual mechanisms, versatile for various market conditions</td>
                 </tr>
                 <tr>
@@ -137,6 +141,7 @@ Total_value = LP_tokens + AMM_fees + Staking_rewards`}
                   <td className="px-3 py-6 whitespace-normal text-sm text-gray-500">Initial edge wanes, less appealing for late joiners</td>
                   <td className="px-3 py-6 whitespace-normal text-sm text-gray-500">Provides steady growth, appealing for stable pair trading</td>
                   <td className="px-3 py-6 whitespace-normal text-sm text-gray-500">Rewards compound significantly, strong for long-term staking</td>
+                  <td className="px-3 py-6 whitespace-normal text-sm text-gray-500">Price stabilizes, potential for sustained interest if community builds</td>
                   <td className="px-3 py-6 whitespace-normal text-sm text-gray-500">Could excel with hybrid approach, offering both growth and stability</td>
                 </tr>
                 <tr>
@@ -146,6 +151,7 @@ Total_value = LP_tokens + AMM_fees + Staking_rewards`}
                   <td className="px-3 py-6 whitespace-normal text-sm text-gray-500">Early advantage fades, not optimal for long-term holding</td>
                   <td className="px-3 py-6 whitespace-normal text-sm text-gray-500">Offers reliable returns, good for stable, long-term liquidity</td>
                   <td className="px-3 py-6 whitespace-normal text-sm text-gray-500">Dominates with compound benefits, excellent for long-term value</td>
+                  <td className="px-3 py-6 whitespace-normal text-sm text-gray-500">Price might decline if hype fades, or maintain if utility is established</td>
                   <td className="px-3 py-6 whitespace-normal text-sm text-gray-500">Potentially dominates with compound benefits, versatile for long-term strategies</td>
                 </tr>
                 <tr>
@@ -175,6 +181,13 @@ Total_value = LP_tokens + AMM_fees + Staking_rewards`}
                   </td>
                   <td className="px-3 py-6 whitespace-normal text-sm text-gray-500">
                     <ul className="list-disc pl-5">
+                      <li>Meme Markets: High</li>
+                      <li>Stable Pairs: Low</li>
+                      <li>Long-term Holdings: Low</li>
+                    </ul>
+                  </td>
+                  <td className="px-3 py-6 whitespace-normal text-sm text-gray-500">
+                    <ul className="list-disc pl-5">
                       <li>Meme Markets: Medium</li>
                       <li>Stable Pairs: Medium</li>
                       <li>Long-term Holdings: Medium</li>
@@ -186,7 +199,7 @@ Total_value = LP_tokens + AMM_fees + Staking_rewards`}
           </div>
 
           <p className="mt-4 text-gray-700">
-            Market Fit Analysis: The suitability of each protocol for different market types is determined based on their mechanics. Gobbler's focus on early incentives makes it ideal for volatile, speculative markets like meme coins. Snapper's balanced approach aligns well with stable pairs. M3M3's aggressive staking rewards cater to long-term holding strategies. Ripper's hybrid model theoretically offers adaptability across market conditions, though its effectiveness would depend on real-world implementation and user adoption.
+            Market Fit Analysis: The suitability of each protocol for different market types is determined based on their mechanics. Gobbler and Pump.fun focus on early incentives, making them ideal for volatile, speculative markets like meme coins. Snapper's balanced approach aligns well with stable pairs. M3M3's aggressive staking rewards cater to long-term holding strategies. Ripper's hybrid model theoretically offers adaptability across market conditions, though its effectiveness would depend on real-world implementation and user adoption.
           </p>
         </div>
 
