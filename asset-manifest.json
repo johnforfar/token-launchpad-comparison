@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/token-launchpad-comparison/static/css/main.259259d1.css",
+    "main.js": "/token-launchpad-comparison/static/js/main.7596f42a.js",
+    "index.html": "/token-launchpad-comparison/index.html",
+    "main.259259d1.css.map": "/token-launchpad-comparison/static/css/main.259259d1.css.map",
+    "main.7596f42a.js.map": "/token-launchpad-comparison/static/js/main.7596f42a.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.259259d1.css",
+    "static/js/main.7596f42a.js"
+  ]
+}
