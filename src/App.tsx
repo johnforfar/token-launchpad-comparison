@@ -12,7 +12,7 @@ const App: React.FC = () => {
         <h2>Token Launchpad Comparison Analysis</h2>
         <h3>Protocol Evolution Overview</h3>
         <p>
-          The DeFi ecosystem has seen rapid evolution in liquidity provision mechanisms, from traditional AMMs to sophisticated staking models. This analysis examines four distinct approaches: Gobbler, Snapper, M3M3, Pump.fun and introduces Ripper as a hypothetical hybrid solution.
+          The DeFi ecosystem has seen rapid evolution in liquidity provision mechanisms, from traditional AMMs to sophisticated staking models. This analysis examines four distinct approaches: Gobbler, Snapper, M3M3, Pump.fun and introduces Ripper (termed by o'mighty mage holder Johnny) as a hypothetical hybrid solution.
         </p>
         <h3>Protocol Mechanics</h3>
         
