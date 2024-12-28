@@ -86,36 +86,67 @@ const calculateSnapperReturns = (initialDeposit: number, entryTime: number, curr
   };
 };
 
-const calculateRipperReturns = (initialDeposit: number, entryTime: number, currentTime: number, isTopStaker: boolean): ProtocolData => {
-  let lpTokens = initialDeposit;
-  if (entryTime <= 4) {
-    lpTokens += initialDeposit * (0.5 * (4 - entryTime) / 4);
-  }
-  const timeHeld = Math.max(0, currentTime - entryTime);
-  const baseRate = 0.01 * (1 + currentTime * 0.05);
-  const kFactor = entryTime <= 4 ? 2 : 1;
-  const feeMultiplier = Math.sqrt(timeHeld + kFactor);
-  const ammFees = lpTokens * timeHeld * baseRate * feeMultiplier;
+const calculateRipperReturns = (
+    initialDeposit: number, 
+    entryTime: number, 
+    currentTime: number, 
+    isTopStaker: boolean
+): ProtocolData => {
+    // Initial liquidity split
+    const initialLPRatio = 0.6;  // 60% goes to LP (thicker than PF's 20%)
+    const initialLPAmount = initialDeposit * initialLPRatio;
+    
+    // Early bonus calculation
+    let lpTokens = initialLPAmount;
+    if (entryTime <= 4) {
+        lpTokens += initialLPAmount * (0.5 * (4 - entryTime) / 4);
+    }
 
-  let stakingRewards = 0;
-  if (isTopStaker) {
-    const stakingMultiplier = Math.min(1 + (timeHeld * 0.15), 2.5);
-    const baseStakingAPY = 0.25;
-    stakingRewards = lpTokens * baseStakingAPY * stakingMultiplier * (timeHeld / 20);
-  }
+    const timeHeld = Math.max(0, currentTime - entryTime);
+    
+    // AMM rewards using x*y=k (not quadratic)
+    const baseRate = 0.01 * (1 + currentTime * 0.05);
+    const ammFees = lpTokens * timeHeld * baseRate;
 
-  return {
-    time: currentTime,
-    gobblerTotal: 0,
-    snapperTotal: 0,
-    ripperTotal: lpTokens + ammFees + stakingRewards,
-    ripperAMM: ammFees,
-    ripperStaking: stakingRewards,
-    m3m3Total: 0,
-    m3m3Sol: 0,
-    m3m3Token: 0,
-    pumpFunTotal: 0,
-  };
+    // Staking rewards with dual-token approach
+    let stakingRewards = 0;
+    if (isTopStaker) {
+        const stakingMultiplier = Math.min(1 + (timeHeld * 0.15), 2.5);
+        const baseStakingAPY = 0.30;  // Increased from 0.25
+        stakingRewards = lpTokens * baseStakingAPY * stakingMultiplier * (timeHeld / 20);
+    }
+
+    // Non-LP token portion rewards
+    const nonLPAmount = initialDeposit * (1 - initialLPRatio);
+    const marketCapMultiplier = calculateMCMultiplier(currentTime);
+    const nonLPValue = nonLPAmount * marketCapMultiplier;
+
+    return {
+        time: currentTime,
+        gobblerTotal: 0,
+        snapperTotal: 0,
+        ripperTotal: lpTokens + ammFees + stakingRewards + nonLPValue,
+        ripperAMM: ammFees,
+        ripperStaking: stakingRewards,
+        m3m3Total: 0,
+        m3m3Sol: 0,
+        m3m3Token: 0,
+        pumpFunTotal: 0,
+    };
+};
+
+// Helper for market cap growth calculation
+const calculateMCMultiplier = (time: number): number => {
+    if (time < 5) {
+        // Faster initial growth
+        return Math.pow(1.3, time);
+    } else if (time < 10) {
+        // Moderate growth
+        return Math.pow(1.3, 5) * Math.pow(1.15, time - 5);
+    } else {
+        // Stabilization
+        return Math.pow(1.3, 5) * Math.pow(1.15, 5) * Math.pow(1.05, time - 10);
+    }
 };
 
 const calculateM3M3Returns = (initialDeposit: number, entryTime: number, currentTime: number, isTopStaker: boolean): ProtocolData => {
@@ -159,6 +190,23 @@ const ProtocolChart: React.FC<ProtocolChartProps> = ({ analysisMarkdown }) => {
     const [entryTime, setEntryTime] = useState<number>(0);
     const [isTopStaker, setIsTopStaker] = useState<boolean>(true);
     const [simulationData, setSimulationData] = useState<ProtocolData[]>([]);
+
+    const generateCurvePoints = (
+        formula: (x: number) => number,
+        start: number,
+        end: number,
+        points: number = 200
+    ) => {
+        const step = (end - start) / points;
+        return Array.from({ length: points + 1 }, (_, i) => {
+            const x = start + step * i;
+            const y = formula(x);
+            return {
+                x,
+                y: isFinite(y) ? y : null
+            };
+        }).filter(point => point.y !== null);
+    };
 
     useEffect(() => {
         const newData: ProtocolData[] = [];
@@ -230,11 +278,11 @@ const ProtocolChart: React.FC<ProtocolChartProps> = ({ analysisMarkdown }) => {
                     </div>
 
                     <Tabs defaultValue="overview" className="w-full">
-                        <TabsList className="grid w-full grid-cols-2">
+                        <TabsList className="grid w-full grid-cols-3">
                             <TabsTrigger value="overview">Overview</TabsTrigger>
                             <TabsTrigger value="details">Reward Details</TabsTrigger>
+                            <TabsTrigger value="curves">Bonding Curves</TabsTrigger>
                         </TabsList>
-
                         <TabsContent value="overview">
                             <div className="border rounded p-4" style={{ height: '400px', width: '100%' }}>
                                 <ResponsiveContainer width="100%" height="100%">
@@ -333,6 +381,69 @@ const ProtocolChart: React.FC<ProtocolChartProps> = ({ analysisMarkdown }) => {
                                             stroke="#ff00ff" 
                                             name="Pump.Fun"
                                             strokeWidth={2}
+                                        />
+                                    </LineChart>
+                                </ResponsiveContainer>
+                            </div>
+                        </TabsContent>
+                        <TabsContent value="curves">
+                            <div className="border rounded p-4" style={{ height: '400px', width: '100%' }}>
+                                <ResponsiveContainer width="100%" height="100%">
+                                    <LineChart
+                                        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                                        data={generateCurvePoints((x) => x, 0.1, 10)}
+                                    >
+                                        <CartesianGrid strokeDasharray="3 3" />
+                                        <XAxis 
+                                            dataKey="x"
+                                            domain={[0, 10]} 
+                                            type="number"
+                                        />
+                                        <YAxis 
+                                            domain={[0, 1000]} 
+                                            type="number"
+                                        />
+                                        <Tooltip />
+                                        <Legend />
+                                        
+                                        {/* Standard x*y=k curves */}
+                                        <Line 
+                                            data={generateCurvePoints((x) => 10/x, 0.1, 10)}
+                                            type="monotone"
+                                            dataKey="y"
+                                            stroke="#f59e0b"
+                                            name="x*y=10"
+                                            strokeWidth={2}
+                                            dot={false}
+                                        />
+                                        <Line 
+                                            data={generateCurvePoints((x) => 100/x, 0.1, 10)}
+                                            type="monotone"
+                                            dataKey="y"
+                                            stroke="#10b981"
+                                            name="x*y=100"
+                                            strokeWidth={2}
+                                            dot={false}
+                                        />
+
+                                        {/* Quadratic curves */}
+                                        <Line 
+                                            data={generateCurvePoints((x) => Math.sqrt(10/(x*x)), 0.1, 10)}
+                                            type="monotone"
+                                            dataKey="y"
+                                            stroke="#6366f1"
+                                            name="x^2*y^2=10"
+                                            strokeWidth={2}
+                                            dot={false}
+                                        />
+                                        <Line 
+                                            data={generateCurvePoints((x) => Math.sqrt(100/(x*x)), 0.1, 10)}
+                                            type="monotone"
+                                            dataKey="y"
+                                            stroke="#ec4899"
+                                            name="x^2*y^2=100"
+                                            strokeWidth={2}
+                                            dot={false}
                                         />
                                     </LineChart>
                                 </ResponsiveContainer>
