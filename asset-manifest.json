@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/token-launchpad-comparison/static/css/main.48052c95.css",
-    "main.js": "/token-launchpad-comparison/static/js/main.c97758dc.js",
+    "main.css": "/token-launchpad-comparison/static/css/main.87870822.css",
+    "main.js": "/token-launchpad-comparison/static/js/main.f9eaa167.js",
     "index.html": "/token-launchpad-comparison/index.html",
-    "main.48052c95.css.map": "/token-launchpad-comparison/static/css/main.48052c95.css.map",
-    "main.c97758dc.js.map": "/token-launchpad-comparison/static/js/main.c97758dc.js.map"
+    "main.87870822.css.map": "/token-launchpad-comparison/static/css/main.87870822.css.map",
+    "main.f9eaa167.js.map": "/token-launchpad-comparison/static/js/main.f9eaa167.js.map"
   },
   "entrypoints": [
-    "static/css/main.48052c95.css",
-    "static/js/main.c97758dc.js"
+    "static/css/main.87870822.css",
+    "static/js/main.f9eaa167.js"
   ]
 }
